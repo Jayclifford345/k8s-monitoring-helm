@@ -713,13 +713,13 @@ data:
         write_relabel_config {
           source_labels = ["cluster"]
           regex = ""
-          replacement = "minor-upgrade-test"
+          replacement = "major-upgrade-test"
           target_label = "cluster"
         }
         write_relabel_config {
           source_labels = ["k8s_cluster_name"]
           regex = ""
-          replacement = "minor-upgrade-test"
+          replacement = "major-upgrade-test"
           target_label = "k8s_cluster_name"
         }
       }
@@ -921,13 +921,13 @@ data:
         write_relabel_config {
           source_labels = ["cluster"]
           regex = ""
-          replacement = "minor-upgrade-test"
+          replacement = "major-upgrade-test"
           target_label = "cluster"
         }
         write_relabel_config {
           source_labels = ["k8s_cluster_name"]
           regex = ""
-          replacement = "minor-upgrade-test"
+          replacement = "major-upgrade-test"
           target_label = "k8s_cluster_name"
         }
       }
@@ -968,8 +968,8 @@ data:
         max_backoff_retries = "10"
       }
       external_labels = {
-        "cluster" = "minor-upgrade-test",
-        "k8s_cluster_name" = "minor-upgrade-test",
+        "cluster" = "major-upgrade-test",
+        "k8s_cluster_name" = "major-upgrade-test",
         chart_version = remote.kubernetes.configmap.version.data["version"],
       }
     }
@@ -983,7 +983,7 @@ data:
     
     # HELP grafana_kubernetes_monitoring_build_info A metric to report the version of the Kubernetes Monitoring Helm chart
     # TYPE grafana_kubernetes_monitoring_build_info gauge
-    grafana_kubernetes_monitoring_build_info{version="3.0.1", namespace="default"} 1
+    grafana_kubernetes_monitoring_build_info{version="3.0.2", namespace="default"} 1
     # HELP grafana_kubernetes_monitoring_feature_info A metric to report the enabled features of the Kubernetes Monitoring Helm chart
     # TYPE grafana_kubernetes_monitoring_feature_info gauge
     grafana_kubernetes_monitoring_feature_info{deployments="kube-state-metrics,node-exporter,windows-exporter,kepler", feature="clusterMetrics", sources="kubelet,kubeletResource,cadvisor,kube-state-metrics,node-exporter,windows-exporter,kepler", version="1.0.0"} 1
@@ -1204,8 +1204,8 @@ data:
         max_backoff_retries = "10"
       }
       external_labels = {
-        "cluster" = "minor-upgrade-test",
-        "k8s_cluster_name" = "minor-upgrade-test",
+        "cluster" = "major-upgrade-test",
+        "k8s_cluster_name" = "major-upgrade-test",
         chart_version = remote.kubernetes.configmap.version.data["version"],
       }
     }
@@ -1218,7 +1218,7 @@ data:
 # Source: k8s-monitoring/templates/extra-objects.yaml
 apiVersion: v1
 data:
-  version: '3.0.1'
+  version: '3.0.2'
 kind: ConfigMap
 metadata:
   name: k8smon-version
@@ -2567,7 +2567,7 @@ spec:
             - name: PROMETHEUS_SERVER_ENDPOINT
               value: "https://prometheus-server.prometheus.svc:9090/api/v1/query"
             - name: CLUSTER_ID
-              value: "minor-upgrade-test"
+              value: "major-upgrade-test"
             - name: DB_BASIC_AUTH_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -2608,6 +2608,8 @@ kind: Alloy
 metadata:
   name: k8smon-alloy-metrics
   namespace: default
+  annotations:
+    helm.sdk.operatorframework.io/uninstall-wait: "true"
 spec: 
   alloy:
     clustering:
@@ -2799,6 +2801,8 @@ kind: Alloy
 metadata:
   name: k8smon-alloy-singleton
   namespace: default
+  annotations:
+    helm.sdk.operatorframework.io/uninstall-wait: "true"
 spec: 
   alloy:
     clustering:
@@ -2990,6 +2994,8 @@ kind: Alloy
 metadata:
   name: k8smon-alloy-logs
   namespace: default
+  annotations:
+    helm.sdk.operatorframework.io/uninstall-wait: "true"
 spec: 
   alloy:
     clustering:
