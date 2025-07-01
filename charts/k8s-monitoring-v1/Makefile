@@ -12,7 +12,7 @@ Chart.lock: Chart.yaml
 
 .SECONDEXPANSION:
 values.schema.json: values.yaml $$(wildcard schema-mods/*)
-	../../scripts/schema-gen.sh .
+	docker run --rm --volume $(shell pwd):/chart ghcr.io/grafana/hackathon-13-helm-chart-toolbox-schema-generator:0.1.0 --chart /chart > $@
 
 default_allow_lists/%.yaml: ../../allowLists/%.yaml
 	cp $< $@

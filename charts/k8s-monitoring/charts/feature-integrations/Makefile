@@ -57,7 +57,7 @@ templates/_integration_types.tpl: $(INTEGRATION_VALUES_FILES)
 	echo '{{- end -}}' >> $@
 
 values.schema.json: values.yaml $(INTEGRATION_SCHEMA_FILES) $(SCHEMA_MODS_JSON_FILES) $(SCHEMA_MODS_JQ_FILES) schema-mods/integration-list.json
-	../../../../scripts/schema-gen.sh .
+	docker run --rm --volume $(shell pwd):/chart ghcr.io/grafana/hackathon-13-helm-chart-toolbox-schema-generator:0.1.0 --chart /chart > $@
 
 README.md: values.yaml Chart.yaml $$(wildcard README.md.gotmpl)
 ifdef HAS_HELM_DOCS
